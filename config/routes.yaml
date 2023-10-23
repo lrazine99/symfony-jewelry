@@ -1,0 +1,10 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+
+
+base: # c'est le nom de la fonction
+  path: /base # url
+  controller : App\Controller\BaseController::base 
+  # App = src

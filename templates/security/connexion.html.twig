@@ -1,0 +1,32 @@
+{% extends 'base.html.twig'  %}
+
+{% block title %}{{ parent() }} | Connexion{% endblock %}
+
+{% block titreh1 %}Connexion{% endblock %}
+
+
+{% block body %}
+
+
+    <form method="post" action="{{ path('connexion')}}" class="col-md-6 mx-auto text-center">
+    
+    
+        <div class="form-group">
+            <label for="">Email</label>
+            <input type="text" class="form-control" id="" name="_username" placeholder="Saisir votre email">
+        </div>
+
+
+        <div class="form-group">
+            <label for="">Mot de passe</label>
+            <input type="password" class="form-control" id="" name="_password" placeholder="Saisir votre mot de passe">
+        </div>
+
+        <input type="submit" value="Connexion" class="btn btn-success col-md-12 mt-3">
+    
+    
+    
+    
+    </form>
+
+{% endblock %}

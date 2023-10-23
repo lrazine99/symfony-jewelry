@@ -1,0 +1,60 @@
+{% extends 'base.html.twig'  %}
+
+{% block title %}{{ parent() }} | Modifier le produit{% endblock %}
+
+{% block titreh1 %}Modifier le produit{% endblock %}
+
+
+{% block body %}
+
+    <div class="col-md-6 mx-auto text-center">
+
+        {{ form_start(formProduit) }} 
+            
+            {{ form_row(formProduit.titre)}}
+
+
+            {{form_row(formProduit.category)}}
+
+            {{form_row(formProduit.prix)}}
+
+
+            {{form_row(formProduit.imageFile , {'attr' : {'onChange' : 'loadFile(event)'}} ) }}
+
+
+            <div class="col-md-12 text-center">
+                <img id="image" 
+
+                {% if produit.image is not empty  %}
+                    src="{{ asset('images/imagesUpload/' ~ produit.image) }}"
+                {% endif %}
+                 style='width:300px'>
+            </div>
+            
+            <input type="submit" value="Modifier" class="btn btn-success col-md-12 mt-3">
+
+        {{ form_end(formProduit) }} 
+        
+    </div>
+
+
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+  <script>
+    var loadFile = function(event){
+    
+    var image = document.getElementById("image");
+
+    image.src = URL.createObjectURL(event.target.files[0]);
+
+    };
+
+  </script>
+
+
+{% endblock %}

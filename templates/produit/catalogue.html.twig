@@ -1,0 +1,72 @@
+{% extends 'base.html.twig'  %}
+
+{% block title %}{{ parent() }} | Catalogue{% endblock %}
+
+{% block titreh1 %}Catalogue{% endblock %}
+
+
+{% block body %}
+
+
+    
+    {% if produits is not empty %}{# Si le tableau produits n'est pas vide  #}
+
+        <div class="row justify-content-around">
+        {% for produit in produits %}{# on boucle le tableau produits  #}
+            {# en Twig on utilise le FOR pour les "for" et les "foreach"
+            produit est l'extraction du tableau produits #}
+
+
+            <div class="border border-dark col-md-3 text-center">
+            
+                <div>{{ produit.titre }}</div> {# produit est un tableau (une ligne de la table produit)#}
+                {# Il faut préciser le champ (séparateur du tableau aux champs : LE POINT) #}
+                <div>{{ produit.prix }} €</div>
+
+                <div>{{ produit.createdAt | date("d/m/Y") }} </div>
+                <div>
+
+                    {% if produit.image is not empty %}
+                        <img src="{{ asset('images/imagesUpload/' ~ produit.image) }}" style="width:100px" alt="">
+                    {% else %}
+                        <img src="{{ asset('images/imageDefault.jpg') }}" style="width:100px" alt="">
+                    {% endif %}
+                </div>
+       
+                <a class="btn btn-danger text-center mt-3 mb-3 col-12" href="{{ path("fiche_produit" , {'id' : produit.id} ) }}">Voir le produit</a>
+
+
+
+                {% if is_granted('ROLE_ADMIN') %}
+            
+                <a class="btn btn-info text-center mt-3 col-12" href="{{ path('produit_modifier' , {'id' : produit.id}) }}">Modifier le produit</a>
+
+
+
+                <form method="POST" action="{{ path('produit_supprimer' , {'id' : produit.id}) }}" onsubmit="return confirm('Confirmez-vous la suppression ?')"> 
+                
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="hidden" name="_token" value="{{ csrf_token('SUP' ~ produit.id ) }}">
+
+                    <input type="submit" class="btn btn-warning text-center mt-3 mb-3 col-12" value="Supprimer le produit">
+                
+                </form>
+
+
+                {% endif %}
+
+
+
+
+
+            </div>
+
+        {% endfor %}
+        </div>
+
+    {% else %}{# Sinon le tableau produits est vide  #}
+        <h4 class="text-center mt-4 fst-italic text-danger">Il n'y a aucun produit</h4>
+    {% endif %}
+
+
+{% endblock %}

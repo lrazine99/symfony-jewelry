@@ -1,0 +1,19 @@
+{% extends 'base.html.twig'  %}
+ {# on récupère la structure du fichier base.html.twig qui est le modèle de l'architecture de tous les fichiers du projet  #}
+
+{% block title %}{{ parent() }} | page base{% endblock %}
+{# la fonction parent() en twig permet de récupérer la valeur initiale qui se trouve dans le fichier base.html.twig  #}
+
+{% block titreh1 %}Page Base{% endblock %}
+{# Création d'un block, titreh1, relié à la balise H1 dans le fichier base.html.twig  #}
+
+
+{% block body %}
+    <p> {{ welcomeTwig }} </p>
+{% endblock %}
+{# dans le block body se trouve le contenu de la page car il sera placé dans la bonne zone du fichier base.html.twig  #}
+
+{# 
+{{ }} => interpolation : afficher le contenu d'une variable
+{% %} => commande : if / for / block  etc..
+ #}

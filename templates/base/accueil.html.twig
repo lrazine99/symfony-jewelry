@@ -1,0 +1,40 @@
+{% extends 'base.html.twig'  %}
+
+{% block title %}{{ parent() }} | Accueil{% endblock %}
+{% block stylesheets %}
+   <style>
+    h1{
+        color:red;
+    }
+   </style> 
+{% endblock %}
+{% block titreh1 %}Accueil{% endblock %}
+
+
+{% block body %}
+
+    {# <p>
+    Bonjour 
+        {% if sexe == "m" %}
+            Monsieur
+        {% else %}
+            Madame
+        {% endif %}
+    </p> #}
+
+  
+
+     <h2 class="text-center">
+    
+        Bonjour
+        {% if app.user %}
+             {{ app.user.prenom }}
+        {% endif %}
+    
+    </h2>
+
+
+    {# {{ dump(app.user)}} #}
+    
+
+{% endblock %}

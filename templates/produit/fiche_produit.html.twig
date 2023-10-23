@@ -1,0 +1,31 @@
+{% extends 'base.html.twig'  %}
+
+{% block title %}{{ parent() }} | {{produit.titre}}{% endblock %}
+
+{% block titreh1 %} {{produit.titre}} {% endblock %}
+
+
+{% block body %}
+
+                <div class="col-md-6 mx-auto text-center">
+
+                    <div>{{ produit.titre }}</div>
+
+                    <div>{{ produit.prix }} €</div>
+
+                    <div>
+                        {% if produit.image is not empty %}
+                            <img src="{{ asset('images/imagesUpload/' ~ produit.image) }}" style="width:300px" alt="">
+                        {% else %}
+                            <img src="{{ asset('images/imageDefault.jpg') }}" style="width:300px" alt="">
+                        {% endif %}
+                    </div>
+
+                    <div>{{ produit.createdAt | date("d/m/Y") }} </div>
+
+                </div>
+
+
+
+
+{% endblock %}

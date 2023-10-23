@@ -1,0 +1,55 @@
+{% extends 'base.html.twig'  %}
+
+{% block title %}{{ parent() }} | Ajouter un produit{% endblock %}
+
+{% block titreh1 %}Ajouter un produit{% endblock %}
+
+
+{% block body %}
+
+
+    {# {{ form(formProduit) }} ==> il appelle tout le formulaire #}
+
+
+    <div class="col-md-6 mx-auto text-center">
+        {{ form_start(formProduit) }} {# <form> #}
+            
+            {# {{form_widget(formProduit)}}  tous les inputs #}
+
+            {{         form_row(  formProduit.titre, {'attr' : {"class" : "bg-danger"} }    )             }}
+
+
+            {{form_row(formProduit.category)}}
+
+            {{form_row(formProduit.prix)}}
+
+            {{form_row(formProduit.image , {'attr' : {'onChange' : 'loadFile(event)'}} ) }}
+
+            <div class="col-md-12 text-center">
+                <img id="image" style='width:300px'>
+            </div>
+            
+            <input type="submit" value="Ajouter" class="btn btn-success col-md-12 mt-3">
+
+        {{ form_end(formProduit) }} {# </form> #}
+    </div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+  <script>
+    var loadFile = function(event){
+    
+    var image = document.getElementById("image");
+
+    image.src = URL.createObjectURL(event.target.files[0]);
+
+    };
+
+  </script>
+
+
+{% endblock %}

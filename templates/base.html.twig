@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Bijouterie{% endblock %}</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        {% block stylesheets %}{% endblock %}
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-info">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Bijouterie</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('accueil')}}">Accueil</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('bases')}}">Base</a>
+                        {# La fonction twig path() permet d'appeler le "name" d'une route
+                            obligatoirement 1e argument
+                            2e argument : facultatif
+                         #}
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('catalogue')}}">Catalogue</a>
+                    </li>
+                
+                </ul>
+
+                <ul class="navbar-nav" style='width:160px'>
+
+
+
+
+                    {# Il existe une variable d'environnement qui contient des données dont notamment le fait de savoir si l'utiliser est connecté ou non 
+
+                        ==> app
+                            => user
+                    
+                     #}
+                    {% if not app.user %} {# Si l'utilisation n'est pas connecté : #}
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('inscription')}}">Inscription</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('connexion')}}">Connexion</a>
+                        </li>
+
+                    {% else %}{# Sinon l'utilisateur est connecté : #}
+
+
+                        {% if is_granted('ROLE_USER') %}{# l'utilisateur est connecté  et s'il est ROLE_USER: #}
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ app.user.prenom }}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{{ path('deconnexion')}}">Déconnexion</a></li>
+                                </ul>
+                            </li>
+
+                        {% elseif is_granted('ROLE_ADMIN') %}{# l'utilisateur est connecté  et s'il est ROLE_ADMIN: #}
+
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ app.user.prenom }}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{ path('back_office')}}">Back Office</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('produit_afficher')}}">Gestion produits</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{{ path('deconnexion')}}">Déconnexion</a></li>
+                                </ul>
+                            </li>
+
+                        
+                        {% endif %}
+
+
+                    {% endif %}
+                </ul>
+
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <h1 class="text-center m-3">{% block titreh1 %}{% endblock %}</h1>
+            {% block body %}{% endblock %}
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
